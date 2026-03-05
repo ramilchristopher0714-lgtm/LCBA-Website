@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cooking Time Challenge - LCBA</title>
     <link rel="stylesheet" href="style.css">
 </head>
@@ -10,15 +12,14 @@
     <nav>
         <div class="logo-container">
             <img src="images/LCBA_Seal.png" alt="LCBA Logo" class="logo">
-            <div class="logo-text">
-                <h2>Laguna College of Business and Arts</h2>
-            </div>
+            <h2 style="color: white;">Laguna College of Business and Arts</h2>
         </div>
+
         <div class="menu-toggle" onclick="toggleMenu()">☰</div>
+
         <ul class="nav-links">
-            <li><a href="index.html">Home</a></li>
             <li><a href="about-lcba.html">About LCBA</a></li>
-            <li><a href="about-strand.html">Strand</a></li>
+            <li><a href="about-strand.html">TVL - HE</a></li>
             <li><a href="image-gallery.html">Images</a></li>
             <li><a href="video-gallery.html">Videos</a></li>
             <li><a href="games.html">Games</a></li>
@@ -27,101 +28,48 @@
 </header>
 
 <section class="section game-section">
+
     <h2>Cooking Time Challenge</h2>
-    <p>Cook the food with the time limit game!</p>
+    <p>Cook the Carbonara before time runs out!</p>
 
     <div class="game-info">
         <h3>Recipe: Carbonara Pasta with Bacon</h3>
-        <p>Click the correct ingredients before time runs out!</p>
+        <p>Click the correct ingredients.</p>
         <p>Time: <span id="time">30</span> seconds</p>
         <p>Score: <span id="score">0</span></p>
     </div>
 
     <div class="ingredients">
-        <button onclick="checkIngredient('pasta')">Pasta</button>
-        <button onclick="checkIngredient('bacon')">Bacon</button>
-        <button onclick="checkIngredient('cream')">All Purpose Cream</button>
-        <button onclick="checkIngredient('egg')">Egg</button>
-        <button onclick="checkIngredient('cheese')">Cheese</button>
-        <button onclick="checkIngredient('pepper')">Black Pepper</button>
+        <button onclick="checkIngredient(event, 'pasta')">Pasta</button>
+        <button onclick="checkIngredient(event, 'bacon')">Bacon</button>
+        <button onclick="checkIngredient(event, 'cream')">All Purpose Cream</button>
+        <button onclick="checkIngredient(event, 'egg')">Egg</button>
+        <button onclick="checkIngredient(event, 'cheese')">Cheese</button>
+        <button onclick="checkIngredient(event, 'pepper')">Black Pepper</button>
 
-        <button onclick="checkIngredient('fish')">Fish</button>
-        <button onclick="checkIngredient('banana')">Banana</button>
-        <button onclick="checkIngredient('ketchup')">Ketchup</button>
-        <button onclick="checkIngredient('rice')">Rice</button>
+        <button onclick="checkIngredient(event, 'fish')">Fish</button>
+        <button onclick="checkIngredient(event, 'banana')">Banana</button>
+        <button onclick="checkIngredient(event, 'ketchup')">Ketchup</button>
+        <button onclick="checkIngredient(event, 'rice')">Rice</button>
     </div>
 
-    <button class="btn" onclick="startGame()">Start Game</button>
-    <p id="result"></p>
+    <button class="btn start-btn" onclick="startGame()">Start Game</button>
+
+    <div id="gameOverScreen" class="game-over">
+        <div class="game-over-content">
+            <h2 id="finalMessage"></h2>
+            <p>Your Final Score: <span id="finalScore"></span></p>
+            <button onclick="closeGameOver()" class="btn">Close</button>
+        </div>
+    </div>
+
+    <a href="index.html" class="btn home-btn">← Go Back to Home</a>
 
 </section>
 
 <footer>
     <p>© 2026 LCBA - H.E. TVL Cookery Game</p>
 </footer>
-
-<script>
-
-let score = 0;
-let timeLeft = 30;
-let timer;
-
-// Correct ingredients for Carbonara
-const correctIngredients = [
-    "pasta",
-    "bacon",
-    "cream",
-    "egg",
-    "cheese",
-    "pepper"
-];
-
-function startGame() {
-    score = 0;
-    timeLeft = 30;
-    document.getElementById("score").innerText = score;
-    document.getElementById("time").innerText = timeLeft;
-    document.getElementById("result").innerText = "";
-
-    clearInterval(timer);
-
-    timer = setInterval(function() {
-        timeLeft--;
-        document.getElementById("time").innerText = timeLeft;
-
-        if (timeLeft <= 0) {
-            clearInterval(timer);
-            endGame();
-        }
-    }, 1000);
-}
-
-function checkIngredient(item) {
-
-    alert(item + " selected!");
-
-    if (timeLeft <= 0) return;
-
-    if (correctIngredients.includes(item)) {
-        score += 10;
-    } else {
-        score -= 5;
-    }
-
-    document.getElementById("score").innerText = score;
-}
-
-function endGame() {
-
-    if (score >= 50) {
-        document.getElementById("result").innerText = "🎉 Great job! You successfully made Carbonara Pasta!";
-    } else {
-        document.getElementById("result").innerText = "❌ Time's up! You didn't complete the recipe. Try again!";
-    }
-
-}
-
-</script>
 
 <script src="script.js"></script>
 </body>
